@@ -1,0 +1,43 @@
+<?php
+
+namespace App\Ai\Tools;
+
+use Tobiebenezer\Ai\Contracts\Tool;
+use Tobiebenezer\Ai\Guardrails\GuardrailContext;
+
+class DummyTool implements Tool
+{
+    public function name()
+    {
+        return 'dummy_tool';
+    }
+
+    public function description()
+    {
+        return 'Describe when the model should call this tool.';
+    }
+
+    public function schema()
+    {
+        return [
+            'type' => 'object',
+            'properties' => [],
+            'required' => [],
+        ];
+    }
+
+    public function profiles()
+    {
+        return ['*'];
+    }
+
+    public function isReadOnly()
+    {
+        return true;
+    }
+
+    public function execute(array $arguments, GuardrailContext $context)
+    {
+        return [];
+    }
+}

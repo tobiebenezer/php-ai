@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Ai\Queue;
+
+use Tobiebenezer\Ai\Contracts\QueuedResponseHandler;
+use Tobiebenezer\Ai\DTO\AiRequest;
+use Tobiebenezer\Ai\DTO\AiResponse;
+use Throwable;
+
+class DummyQueuedResponseHandler implements QueuedResponseHandler
+{
+    public function handle(AiResponse $response, AiRequest $request)
+    {
+        // Store, broadcast, notify, or otherwise handle the queued AI response.
+    }
+
+    public function failed(Throwable $exception, AiRequest $request)
+    {
+        // Report or persist queued AI failures.
+    }
+}

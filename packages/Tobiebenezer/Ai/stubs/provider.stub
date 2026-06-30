@@ -1,0 +1,31 @@
+<?php
+
+namespace App\Ai\Providers;
+
+use Tobiebenezer\Ai\Contracts\ProviderAdapter;
+use Tobiebenezer\Ai\Contracts\StreamHandler;
+use Tobiebenezer\Ai\Contracts\StreamingProviderAdapter;
+use Tobiebenezer\Ai\DTO\AiProviderRequest;
+
+class DummyProviderAdapter implements ProviderAdapter, StreamingProviderAdapter
+{
+    public function name()
+    {
+        return 'dummy';
+    }
+
+    public function send(AiProviderRequest $request)
+    {
+        // Return a Tobiebenezer\Ai\DTO\AiProviderResponse from a normalized provider response.
+    }
+
+    public function supportsTools()
+    {
+        return true;
+    }
+
+    public function stream(AiProviderRequest $request, StreamHandler $handler)
+    {
+        // Stream provider chunks to the handler and return the normalized final response.
+    }
+}

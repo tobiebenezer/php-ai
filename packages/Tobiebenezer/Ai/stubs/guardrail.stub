@@ -1,0 +1,21 @@
+<?php
+
+namespace App\Ai\Guardrails;
+
+use Tobiebenezer\Ai\Contracts\RuntimeGuardrail;
+use Tobiebenezer\Ai\Guardrails\GuardrailContext;
+use Tobiebenezer\Ai\Guardrails\GuardrailDecision;
+use Tobiebenezer\Ai\Guardrails\GuardrailEvent;
+
+class DummyGuardrail implements RuntimeGuardrail
+{
+    public function appliesTo(GuardrailContext $context)
+    {
+        return true;
+    }
+
+    public function check(GuardrailEvent $event, GuardrailContext $context)
+    {
+        return GuardrailDecision::allow();
+    }
+}
