@@ -1,6 +1,6 @@
 {
-    "name": "tobiebenezer/calsoft-ai",
-    "description": "Laravel 8 compatible AI assistant scaffold for Calsoft.",
+    "name": "tobiebenezer/php-ai",
+    "description": "Laravel 8 compatible AI assistant scaffold.",
     "type": "library",
     "license": "proprietary",
     "autoload": {
