@@ -229,3 +229,66 @@ class BlockListGuardrail implements RuntimeGuardrail
     }
 }
 ```
+
+### Overriding Package Guardrails
+
+If you want to customize or replace a default package guardrail (such as `CapabilitiesGuardrail`), you can override it in your application using one of the following two approaches:
+
+#### Method 1: Container Binding (Recommended)
+You can register an override in your application's `AppServiceProvider` so that the Laravel container resolves your custom guardrail class whenever the package asks for the default one.
+
+```php
+// app/Providers/AppServiceProvider.php
+use Tobiebenezer\Ai\Guardrails\CapabilitiesGuardrail as BaseCapabilities;
+use App\Ai\Guardrails\CustomCapabilitiesGuardrail;
+
+public function boot()
+{
+    $this->app->bind(BaseCapabilities::class, CustomCapabilitiesGuardrail::class);
+}
+```
+
+#### Method 2: Configuration Replacement
+Alternatively, publish the configuration file (`config/ai.php`) and swap the package guardrail class in the `guardrails.global` or `guardrails.groups` array with your custom class:
+
+```php
+// config/ai.php
+'guardrails' => [
+    'global' => [
+        // Replace base guardrail with custom class
+        \App\Ai\Guardrails\CustomCapabilitiesGuardrail::class,
+        
+        \Tobiebenezer\Ai\Guardrails\MaxToolCallsGuardrail::class,
+        \Tobiebenezer\Ai\Guardrails\ReadOnlyToolsGuardrail::class,
+        \Tobiebenezer\Ai\Guardrails\HtmlStyleGuardrail::class,
+        \Tobiebenezer\Ai\Guardrails\PromptSanitizerGuardrail::class,
+    ],
+];
+```
+
+Your custom guardrail must implement the respective contract (`Tobiebenezer\Ai\Contracts\InstructionGuardrail` or `Tobiebenezer\Ai\Contracts\RuntimeGuardrail`):
+
+```php
+<?php
+
+namespace App\Ai\Guardrails;
+
+use Tobiebenezer\Ai\Contracts\InstructionGuardrail;
+use Tobiebenezer\Ai\Guardrails\GuardrailContext;
+
+class CustomCapabilitiesGuardrail implements InstructionGuardrail
+{
+    public function appliesTo(GuardrailContext $context)
+    {
+        return true;
+    }
+
+    public function instructions(GuardrailContext $context)
+    {
+        return [
+            "Your custom capabilities instructions override here...",
+        ];
+    }
+}
+```
+

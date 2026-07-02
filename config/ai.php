@@ -18,7 +18,9 @@ return [
             'model' => env('OPENROUTER_MODEL', 'google/gemini-2.5-flash'),
             'max_tool_calls' => 3,
             'guardrails' => ['default'],
-            'options' => [],
+            'options' => [
+                'max_tokens' => 2000,
+            ],
         ],
 
         'gemini' => [
