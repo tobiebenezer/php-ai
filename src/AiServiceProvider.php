@@ -44,18 +44,18 @@ class AiServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->publishes([
                 __DIR__.'/../config/ai.php' => config_path('ai.php'),
-            ], ['calsoft-ai', 'calsoft-ai-config']);
+            ], ['ai', 'ai-config']);
 
             $this->publishes([
                 __DIR__.'/../database/migrations/' => database_path('migrations'),
-            ], ['calsoft-ai', 'calsoft-ai-migrations']);
+            ], ['ai', 'ai-migrations']);
 
             $this->publishes([
                 __DIR__.'/../stubs/provider.stub' => base_path('stubs/ai-provider.stub'),
                 __DIR__.'/../stubs/tool.stub' => base_path('stubs/ai-tool.stub'),
                 __DIR__.'/../stubs/guardrail.stub' => base_path('stubs/ai-guardrail.stub'),
                 __DIR__.'/../stubs/queued-response-handler.stub' => base_path('stubs/ai-queued-response-handler.stub'),
-            ], ['calsoft-ai', 'calsoft-ai-stubs']);
+            ], ['ai', 'ai-stubs']);
         }
     }
 }

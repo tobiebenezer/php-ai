@@ -29,7 +29,7 @@ Add the local repository to your host project's `composer.json` file:
 Then install the package:
 
 ```bash
-composer require tobiebenezer/calsoft-ai
+composer require tobiebenezer/php-ai
 ```
 
 ### Configuration & Migrations
@@ -41,9 +41,9 @@ Publish the configuration file, migrations, and stubs:
 php artisan vendor:publish --provider="Tobiebenezer\Ai\AiServiceProvider"
 
 # Or publish individually
-php artisan vendor:publish --tag="calsoft-ai-config"
-php artisan vendor:publish --tag="calsoft-ai-migrations"
-php artisan vendor:publish --tag="calsoft-ai-stubs"
+php artisan vendor:publish --tag="ai-config"
+php artisan vendor:publish --tag="ai-migrations"
+php artisan vendor:publish --tag="ai-stubs"
 ```
 
 Run the migrations to create the configuration table:
