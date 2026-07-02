@@ -96,7 +96,16 @@ class ToolLoopRunner
                 } catch (\Throwable $exception) {
                     $status = 'failed';
                     $exceptionMessage = $exception->getMessage();
-                    throw $exception;
+                    $result = new \Tobiebenezer\Ai\DTO\AiToolResult(
+                        $toolCall->id,
+                        $toolCall->name,
+                        [
+                            'status' => 'error',
+                            'message' => 'Tool execution failed: ' . $exception->getMessage(),
+                            'suggestion' => 'Check arguments and schema constraints. If a column was not found, verify the selected fields.',
+                        ]
+                    );
+                    $resultData = $result->result;
                 } finally {
                     $toolLatency = (int) ((microtime(true) - $toolStartTime) * 1000);
                     $executedTools[] = [
@@ -203,7 +212,16 @@ class ToolLoopRunner
                 } catch (\Throwable $exception) {
                     $status = 'failed';
                     $exceptionMessage = $exception->getMessage();
-                    throw $exception;
+                    $result = new \Tobiebenezer\Ai\DTO\AiToolResult(
+                        $toolCall->id,
+                        $toolCall->name,
+                        [
+                            'status' => 'error',
+                            'message' => 'Tool execution failed: ' . $exception->getMessage(),
+                            'suggestion' => 'Check arguments and schema constraints. If a column was not found, verify the selected fields.',
+                        ]
+                    );
+                    $resultData = $result->result;
                 } finally {
                     $toolLatency = (int) ((microtime(true) - $toolStartTime) * 1000);
                     $executedTools[] = [
