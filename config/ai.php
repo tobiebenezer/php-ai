@@ -57,6 +57,10 @@ return [
         ],
     ],
 
+    'budget' => [
+        'monthly_token_limit' => env('AI_MONTHLY_TOKEN_LIMIT', null),
+    ],
+
     'queue' => [
         'connection' => env('AI_QUEUE_CONNECTION', null),
         'queue' => env('AI_QUEUE', null),
@@ -79,6 +83,7 @@ return [
             Tobiebenezer\Ai\Guardrails\HtmlStyleGuardrail::class,
             Tobiebenezer\Ai\Guardrails\CapabilitiesGuardrail::class,
             Tobiebenezer\Ai\Guardrails\PromptSanitizerGuardrail::class,
+            Tobiebenezer\Ai\Guardrails\BudgetGuardrail::class,
         ],
 
         'groups' => [
