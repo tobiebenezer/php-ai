@@ -9,6 +9,7 @@ class AiRequest
     public $user;
     public $metadata;
     public $options;
+    public $responseSchema;
 
     public function __construct(array $attributes = [])
     {
@@ -17,6 +18,7 @@ class AiRequest
         $this->user = isset($attributes['user']) ? $attributes['user'] : null;
         $this->metadata = isset($attributes['metadata']) ? $attributes['metadata'] : [];
         $this->options = isset($attributes['options']) ? $attributes['options'] : [];
+        $this->responseSchema = isset($attributes['response_schema']) ? $attributes['response_schema'] : null;
     }
 
     public static function fromText($message, array $attributes = [])

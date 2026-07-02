@@ -101,6 +101,7 @@ class AiAssistant
             'messages' => $messages,
             'tools' => $this->tools->schemas($toolSet),
             'options' => array_merge(isset($profile['options']) ? $profile['options'] : [], $request->options),
+            'response_schema' => $request->responseSchema,
         ]);
 
         return [$provider, $providerRequest, $toolSet, $pipeline, $context];

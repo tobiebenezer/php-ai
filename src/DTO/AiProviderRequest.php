@@ -9,6 +9,7 @@ class AiProviderRequest
     public $tools;
     public $toolResults;
     public $options;
+    public $responseSchema;
 
     public function __construct(array $attributes = [])
     {
@@ -17,5 +18,6 @@ class AiProviderRequest
         $this->tools = isset($attributes['tools']) ? $attributes['tools'] : [];
         $this->toolResults = isset($attributes['tool_results']) ? $attributes['tool_results'] : [];
         $this->options = isset($attributes['options']) ? $attributes['options'] : [];
+        $this->responseSchema = isset($attributes['response_schema']) ? $attributes['response_schema'] : null;
     }
 }

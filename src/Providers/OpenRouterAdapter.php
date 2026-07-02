@@ -125,6 +125,17 @@ class OpenRouterAdapter implements StreamingProviderAdapter
             'stream' => (bool) $stream,
         ]);
 
+        if ($request->responseSchema) {
+            $payload['response_format'] = [
+                'type' => 'json_schema',
+                'json_schema' => [
+                    'name' => 'structured_response',
+                    'strict' => true,
+                    'schema' => $request->responseSchema,
+                ],
+            ];
+        }
+
         if (count($request->tools) > 0) {
             $payload['tools'] = $this->tools($request->tools);
             $payload['tool_choice'] = isset($payload['tool_choice']) ? $payload['tool_choice'] : 'auto';

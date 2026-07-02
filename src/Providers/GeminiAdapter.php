@@ -128,6 +128,29 @@ class GeminiAdapter implements StreamingProviderAdapter
             'contents' => $this->contents($request->messages),
         ]);
 
+        $generationConfig = isset($payload['generationConfig']) ? $payload['generationConfig'] : [];
+
+        foreach (['temperature', 'maxOutputTokens', 'topP', 'topK', 'candidateCount', 'stopSequences'] as $key) {
+            if (isset($payload[$key])) {
+                $generationConfig[$key] = $payload[$key];
+                unset($payload[$key]);
+            }
+        }
+
+        if (isset($payload['max_tokens'])) {
+            $generationConfig['maxOutputTokens'] = (int) $payload['max_tokens'];
+            unset($payload['max_tokens']);
+        }
+
+        if ($request->responseSchema) {
+            $generationConfig['responseMimeType'] = 'application/json';
+            $generationConfig['responseSchema'] = $this->normalizeSchema($request->responseSchema);
+        }
+
+        if (count($generationConfig) > 0) {
+            $payload['generationConfig'] = $generationConfig;
+        }
+
         $systemInstruction = $this->systemInstruction($request->messages);
 
         if ($systemInstruction) {
