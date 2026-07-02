@@ -292,3 +292,54 @@ class CustomCapabilitiesGuardrail implements InstructionGuardrail
 }
 ```
 
+---
+
+## 🛠️ Advanced Features
+
+### 1. Developer Artisan Generators
+Automatically bootstrap your package assets using standard Artisan console commands:
+* **Create an AI Tool**: `php artisan make:ai-tool {Name}` (add `--analytical` or `-a` for database-backed tools).
+* **Create a Guardrail**: `php artisan make:ai-guardrail {Name}` (add `--runtime` or `-r` for runtime phase checking).
+* **Create a Provider**: `php artisan make:ai-provider {Name}`.
+
+### 2. Request & Tool Call Audit Logs
+Run the migrations to create the request log tables:
+```bash
+php artisan vendor:publish --tag="ai-migrations"
+php artisan migrate
+```
+The package automatically logs:
+* **`ai_request_logs`**: Prompts, final assistant content, token counts, and request-level execution latency.
+* **`ai_tool_call_logs`**: Executed tools, input arguments, returned outputs, execution status, latencies, and exception logs.
+
+### 3. Structured Outputs (JSON Schema)
+Force the model to respond in structured JSON format conforming to a schema:
+```php
+$response = $assistant->respond(new AiRequest([
+    'profile' => 'openrouter',
+    'messages' => [
+        AiMessage::user('Find profile details for John Doe')
+    ],
+    'response_schema' => [
+        'type' => 'object',
+        'properties' => [
+            'name' => ['type' => 'string'],
+            'age' => ['type' => 'integer'],
+        ],
+        'required' => ['name', 'age'],
+    ]
+]));
+```
+
+### 4. Monthly Token Budget
+Prevent cost overruns by setting monthly limits in `config/ai.php`:
+```php
+'budget' => [
+    'monthly_token_limit' => 5000000,
+],
+```
+When exceeded, requests are blocked automatically and throw a `GuardrailException`.
+
+### 5. Self-Healing Exception Recovery
+If a tool execution fails (e.g., database query exceptions or column errors), the package intercepts the exception and feeds the error details back to the LLM as the tool result. The LLM can analyze the schema failure, correct its query arguments, and retry successfully.
+
