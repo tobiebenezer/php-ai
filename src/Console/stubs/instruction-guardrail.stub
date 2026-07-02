@@ -1,0 +1,21 @@
+<?php
+
+namespace {{ namespace }};
+
+use Tobiebenezer\Ai\Contracts\InstructionGuardrail;
+use Tobiebenezer\Ai\Guardrails\GuardrailContext;
+
+class {{ class }} implements InstructionGuardrail
+{
+    public function appliesTo(GuardrailContext $context)
+    {
+        return true;
+    }
+
+    public function instructions(GuardrailContext $context)
+    {
+        return [
+            'Your instruction directive here...',
+        ];
+    }
+}

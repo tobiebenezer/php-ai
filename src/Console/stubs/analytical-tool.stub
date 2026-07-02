@@ -1,0 +1,50 @@
+<?php
+
+namespace {{ namespace }};
+
+use Tobiebenezer\Ai\Tools\AnalyticalTool;
+
+class {{ class }} extends AnalyticalTool
+{
+    protected function modelClass()
+    {
+        // return YourModel::class;
+    }
+
+    protected function filterableColumns()
+    {
+        return [];
+    }
+
+    protected function groupableColumns()
+    {
+        return [];
+    }
+
+    protected function aggregateableColumns()
+    {
+        return [];
+    }
+
+    protected function defaultSelects()
+    {
+        return [
+            // 'table.id',
+        ];
+    }
+
+    protected function joins()
+    {
+        return [];
+    }
+
+    protected function dateField()
+    {
+        return 'created_at';
+    }
+
+    public function description()
+    {
+        return 'Describe what this analytical tool queries.';
+    }
+}

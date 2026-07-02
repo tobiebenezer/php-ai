@@ -56,6 +56,12 @@ class AiServiceProvider extends ServiceProvider
                 __DIR__.'/../stubs/guardrail.stub' => base_path('stubs/ai-guardrail.stub'),
                 __DIR__.'/../stubs/queued-response-handler.stub' => base_path('stubs/ai-queued-response-handler.stub'),
             ], ['ai', 'ai-stubs']);
+
+            $this->commands([
+                Console\MakeAiToolCommand::class,
+                Console\MakeAiGuardrailCommand::class,
+                Console\MakeAiProviderCommand::class,
+            ]);
         }
     }
 }
